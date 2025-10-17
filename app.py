@@ -1,13 +1,18 @@
+import os
 import google.generativeai as genai
 from flask import Flask, render_template, request, jsonify
-import requests  # For making API calls
+import requests
 import json
+from dotenv import load_dotenv
+
+# Load environment variables from .env file for local development
+load_dotenv()
 
 # --- IMPORTANT ---
-# Paste your three API keys here.
-GEMINI_API_KEY = "AIzaSyDkmiG3eUUNl_I37XJSkkw7hjSXTaVEcg8"
-WEATHER_API_KEY = "a39a55c6859b46fda7d144100251710"
-NEWS_API_KEY = "c3220e6ce884152a0cbce3a736fb8a29"
+# Read API keys securely from environment variables
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
+NEWS_API_KEY = os.environ.get("NEWS_API_KEY")
 
 # Configure the Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
@@ -99,7 +104,7 @@ def get_news(topic: str):
 # --- Teach the model about the functions ---
 # Use one of the latest models that supports function calling
 model = genai.GenerativeModel(
-    'models/gemini-2.5-flash',
+    'gemini-1.5-pro-latest', # Corrected model name for better support
     tools=[get_weather, get_news,plan_trip]
 )
 
