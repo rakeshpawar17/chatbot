@@ -60,7 +60,7 @@ def plan_trip(destination: str, duration_days: int, interests: str):
 # --- Initialize Gemini Model ---
 # 'models/gemini-1.5-flash-latest' works on current API
 model = genai.GenerativeModel(
-    model_name="models/gemini-2.5-flash",
+    model_name="models/gemini-pro-latest",
     tools=[get_weather, get_news, plan_trip]
 )
 
